@@ -45,10 +45,11 @@ void check_bootloader(void)
 	uint8_t hash[32];
 	int r = memory_bootloader_hash(hash);
 
-	if (!known_bootloader(r, hash)) {
+	// Ignore current bootloader hash, just overwrite it with the one stored in the firmware
+	/*if (!known_bootloader(r, hash)) {
 		layoutDialog(&bmp_icon_error, NULL, NULL, NULL, "Unknown bootloader", "detected.", NULL, "Unplug your TREZOR", "contact our support.", NULL);
 		system_halt();
-	}
+	}*/
 
 	if (r == 32 && 0 == memcmp(hash, bl_hash, 32)) {
 		// all OK -> done
